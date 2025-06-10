@@ -1,17 +1,48 @@
-## Foundry
+# Airdrop Project – RatherToken (RDT)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A blockchain-based airdrop system for distributing ERC20 tokens.
 
-Foundry consists of:
+## 🚀 Project Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+A blockchain company is launching a new ERC20 token — `RatherToken (RDT)` — and distributing it via an airdrop to eligible community members. This system is designed to:
 
-## Documentation
+- Allow users to **claim partial amounts** of their allocated tokens whenever they choose.
+- Offer administrators real-time **analytics** and **control**, including:
+  - Total claimed vs total allocated tokens.
+  - Recent token claim activity.
+  - The ability to **pause/resume** the airdrop.
 
-https://book.getfoundry.sh/
+## 🛠️ Tech Stack
+
+| Layer       | Technology                 |
+|-------------|-----------------------------|
+| Smart Contracts | Solidity, OpenZeppelin, Foundry |
+| Frontend    | React, Next.js, Tailwind (planned) |
+| Tooling     | Anvil, GitHub Actions (planned) |
+
+## 🔐 Smart Contracts
+
+The system will consist of:
+
+### ✅ RatherToken (ERC20)
+### ✅ Airdrop
+
+## Instalation
+
+```
+# Clone the repository
+git clone git@github.com:wmachaca/airdrop-project.git
+cd airdrop-project
+
+# Install Foundry (if not already)
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+
+# Install dependencies
+forge install
+
+```
+
 
 ## Usage
 
@@ -63,4 +94,19 @@ $ cast <subcommand>
 $ forge --help
 $ anvil --help
 $ cast --help
+```
+
+## Project Structure
+
+```
+airdop-project/
+│
+├── contracts/          # Solidity smart contracts
+│   └── RatherToken.sol
+├── script/             # Deployment scripts
+├── test/               # Unit tests
+├── lib/                # External libraries (e.g., OpenZeppelin)
+├── foundry.toml        # Foundry project config
+└── .env                # Environment variables (not committed)
+
 ```
