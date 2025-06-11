@@ -18,7 +18,7 @@ A blockchain company is launching a new ERC20 token — `RatherToken (RDT)` — 
 |-------------|-----------------------------|
 | Smart Contracts | Solidity, OpenZeppelin, Foundry |
 | Frontend    | React, Next.js, Tailwind (planned) |
-| Tooling     | Anvil, GitHub Actions (planned) |
+| Tooling     | Anvil, GitHub Actions |
 
 ## 🔐 Smart Contracts
 
@@ -73,7 +73,7 @@ $ anvil
 ### Deploy
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+$ forge script script/DeployRatherToken.s.sol:DeployRatherToken --rpc-url <your_rpc_url> --private-key <your_private_key>
 ```
 
 ### Cast
