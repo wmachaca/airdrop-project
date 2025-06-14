@@ -25,7 +25,7 @@ A blockchain company is launching a new ERC20 token — `RatherToken (RDT)` — 
 The system will consist of:
 
 ### ✅ RatherToken (ERC20)
-### ✅ Airdrop
+### ✅ RatherAirdrop 
 
 ## Instalation
 
@@ -38,12 +38,26 @@ cd airdrop-project
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 
-# Install dependencies
+# Install dependencies (e.g., OpenZeppelin)
 forge install
 
-# Install from submodules
+# (Alternative) Install from submodules
 git submodule update --init --recursive
 
+```
+
+## Merkle Tree
+
+### Generate Input
+
+```shell
+$ forge script script/GenerateInput.s.sol:GenerateInput
+```
+
+### Build Merkle Tree
+
+```shell
+$ forge script script/MakeMerkle.s.sol:MakeMerkle
 ```
 
 
@@ -59,6 +73,7 @@ $ forge build
 
 ```shell
 $ forge test
+$ forge test --match-test testRecoverUnclaimedTokensAfterPause -vv
 ```
 
 ### Format
