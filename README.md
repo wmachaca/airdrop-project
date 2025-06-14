@@ -41,6 +41,9 @@ foundryup
 # Install dependencies
 forge install
 
+# Install from submodules
+git submodule update --init --recursive
+
 ```
 
 
