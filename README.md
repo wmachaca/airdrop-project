@@ -18,14 +18,14 @@ A blockchain company is launching a new ERC20 token — `RatherToken (RDT)` — 
 |-------------|-----------------------------|
 | Smart Contracts | Solidity, OpenZeppelin, Foundry |
 | Frontend    | React, Next.js, Tailwind (planned) |
-| Tooling     | Anvil, GitHub Actions (planned) |
+| Tooling     | Anvil, GitHub Actions |
 
 ## 🔐 Smart Contracts
 
 The system will consist of:
 
 ### ✅ RatherToken (ERC20)
-### ✅ Airdrop
+### ✅ RatherAirdrop 
 
 ## Instalation
 
@@ -38,9 +38,26 @@ cd airdrop-project
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 
-# Install dependencies
+# Install dependencies (e.g., OpenZeppelin)
 forge install
 
+# (Alternative) Install from submodules
+git submodule update --init --recursive
+
+```
+
+## Merkle Tree
+
+### Generate Input
+
+```shell
+$ forge script script/GenerateInput.s.sol:GenerateInput
+```
+
+### Build Merkle Tree
+
+```shell
+$ forge script script/MakeMerkle.s.sol:MakeMerkle
 ```
 
 
@@ -56,6 +73,7 @@ $ forge build
 
 ```shell
 $ forge test
+$ forge test --match-test testRecoverUnclaimedTokensAfterPause -vv
 ```
 
 ### Format
@@ -73,7 +91,7 @@ $ anvil
 ### Deploy
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+$ forge script script/DeployRatherToken.s.sol:DeployRatherToken --rpc-url <your_rpc_url> --private-key <your_private_key>
 ```
 
 ### Cast

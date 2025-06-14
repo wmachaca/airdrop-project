@@ -5,11 +5,10 @@ import {Script} from "forge-std/Script.sol";
 import {RatherToken} from "../contracts/RatherToken.sol";
 
 contract DeployRatherToken is Script {
-    uint256 public constant INITIAL_SUPPLY = 100 ether;
-    function run() external returns(RatherToken) {
+    function run(uint256 initialSupply) external returns (RatherToken) {
         vm.startBroadcast();
-        RatherToken rt = new RatherToken(INITIAL_SUPPLY);
+        RatherToken rt = new RatherToken(initialSupply);
         vm.stopBroadcast();
-        return rt; 
+        return rt;
     }
 }
