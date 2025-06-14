@@ -43,7 +43,7 @@ contract RatherAirdrop is Ownable {
         Claim storage userClaim = s_hasClaimed[account];//reference of s_hasClaimed
 
         if (userClaim.totalAmount == 0) {            
-            bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encodePacked(account, totalAmount))));
+            bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(account, totalAmount))));
             require(MerkleProof.verify(merkleProof, i_merkleRoot, leaf), "Invalid Merkle Proof");
             userClaim.totalAmount = totalAmount;
             claimers.push(account);
