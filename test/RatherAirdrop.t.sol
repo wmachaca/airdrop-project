@@ -13,28 +13,28 @@ contract RatherAirdropTest is Test {
     RatherAirdrop public ratherAirdrop;
     RatherToken public ratherToken;
 
-    bytes32 public ROOT = 0xaa5d581231e596618465a56aa0f5870ba6e20785fe436d5bfb82b08662ccc7c4;
+    bytes32 public ROOT = 0xa828cf1ba9a04d02a3c07c1c4e7e517fcc4b535b6b7c8e57abe51cb3f6384ef3;
     uint256 public INITIAL_SUPPLY = 1000*1e18;
     uint256 public TOTAL_CLAIM = 25*1e18;
     uint256 public AMOUNT_TO_SEND = 4*TOTAL_CLAIM;
-    bytes32 proofOne =  0x0fd7c981d39bece61f7499702bf59b3114a90e66b51ba2c53abdf7b62986c00a;
+    bytes32 proofOne =  0x22ac0728a4a2a6192b0cefcd609bba7a10eaf6ad3df112db08bdd37e5b2ffd87;
     bytes32 proofTwo =  0xe5ebd1e1b5a5478a944ecab36a9a954ac3b6b8216875f6524caa7a1d87096576;
     bytes32[] public PROOF = [proofOne, proofTwo];
 
     //address user = 0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D;
-    address user;
-    address user2;
-    uint256 userPrivKey;
+    //address user;
+    address user=0x99E97638276C46883e7730bF37091F807Ed08215; // test1 metamask
+    //uint256 userPrivKey;
 
     function setUp() public {
         ratherToken = new RatherToken(INITIAL_SUPPLY);//owner has the token
         ratherAirdrop = new RatherAirdrop(ROOT, ratherToken, AMOUNT_TO_SEND);
         ratherToken.transfer(address(ratherAirdrop), AMOUNT_TO_SEND);//the airdrop has the token
-        (user, userPrivKey) = makeAddrAndKey("user"); // generate address and userPrivKey for output
-        user2 = makeAddr("user2");
+        //(user, userPrivKey) = makeAddrAndKey("user"); // generate address and userPrivKey for output
     }
     function testClaimAllAtOnce() public {
-        //console.log("user address:", user);
+        console.log("user address:", user);
+        //console.log("user address privkey:", vm.toString(userPrivKey));
         uint256 startingBalance = ratherToken.balanceOf(user);
 
         vm.prank(user);

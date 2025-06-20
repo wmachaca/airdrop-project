@@ -108,6 +108,12 @@ $ anvil --help
 $ cast --help
 ```
 
+### Generate Abi.json
+
+```shell
+$ forge inspect RatherAirdrop abi --json > abi/airdropAbi.json
+```
+
 ## Project Structure
 
 ```
