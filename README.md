@@ -80,6 +80,8 @@ $ forge test --match-test testRecoverUnclaimedTokensAfterPause -vv
 
 ```shell
 $ forge fmt
+$ npm run format
+$ npm run lint
 ```
 
 ### Anvil

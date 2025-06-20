@@ -1,0 +1,29 @@
+{
+  "name": "airdrop-project",
+  "version": "1.0.0",
+  "description": "A blockchain-based airdrop system for distributing ERC20 tokens.",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "format": "prettier --write \"{contracts,test,script}/**/*.sol\"",
+    "lint": "solhint \"{contracts,test}/**/*.sol\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmachaca/airdrop-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wmachaca/airdrop-project/issues"
+  },
+  "homepage": "https://github.com/wmachaca/airdrop-project#readme",
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "prettier-plugin-solidity": "^2.0.0",
+    "solhint": "^5.1.0"
+  }
+}
