@@ -87,6 +87,9 @@ contract RatherAirdrop is Ownable, Pausable {
         uint256 unclaimed = totalTokensToDistribute - totalTokensClaimed;
         uint256 toRecover = balance < unclaimed ? balance : unclaimed;
 
+    // Adjust the internal accounting
+    totalTokensToDistribute -= toRecover;
+    
         //require(i_airdropToken.safeTransfer(owner(), toRecover), "Recovery transfer failed");
         i_airdropToken.safeTransfer(owner(), toRecover);
 
