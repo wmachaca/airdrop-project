@@ -32,8 +32,8 @@ contract RatherAirdropTest is Test {
         ratherToken = new RatherToken(INITIAL_SUPPLY); //owner has the token
         ratherAirdrop = new RatherAirdrop(ROOT, ratherToken, AMOUNT_TO_SEND);
         ratherToken.transfer(address(ratherAirdrop), AMOUNT_TO_SEND);//the airdrop has the token
-        (user, userPrivKey) = makeAddrAndKey("user"); // generate address and userPrivKey for output
-        user2 = makeAddr("user2");
+        //(user, userPrivKey) = makeAddrAndKey("user"); // generate address and userPrivKey for output
+        //user2 = makeAddr("user2");
     }
 
     function pauseAirdrop() internal {
