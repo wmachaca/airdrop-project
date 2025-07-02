@@ -8,9 +8,9 @@ import {RatherToken} from "../contracts/RatherToken.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract DeployRatherAirdrop is Script {
-    bytes32 private s_merkleRoot = 0xa828cf1ba9a04d02a3c07c1c4e7e517fcc4b535b6b7c8e57abe51cb3f6384ef3;
-    uint256 private s_amountToTransfer = 4* 25* 1e18;
-    uint256 private initialSupply = 1000*1e18;
+    bytes32 private s_merkleRoot = 0x4e2a25cb48b3d980bbbf57eb9a597d4868ddced7e85801a19748c831a703c3cd;
+    uint256 private s_amountToTransfer = 8* 25* 1e18;
+    uint256 private initialSupply = 2000*1e18;
 
     //function deployRatherAirdrop(uint256 initialSupply) public returns (RatherAirdrop, RatherToken) {
     function deployRatherAirdrop() public returns (RatherAirdrop, RatherToken) {    
