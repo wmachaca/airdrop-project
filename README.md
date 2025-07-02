@@ -1,10 +1,10 @@
 # Airdrop Project – RatherToken (RDT)
 
-A blockchain-based airdrop system for distributing ERC20 tokens.
+A blockchain-based airdrop system for distributing ERC20 tokens using Merkle tress and smart contracts.
 
 ## 🚀 Project Overview
 
-A blockchain company is launching a new ERC20 token — `RatherToken (RDT)` — and distributing it via an airdrop to eligible community members. This system is designed to:
+RatherToken (RDT) is an ERC20 token distributed through a decentralized airdrop system. The system is designed to:
 
 - Allow users to **claim partial amounts** of their allocated tokens whenever they choose.
 - Offer administrators real-time **analytics** and **control**, including:
@@ -17,15 +17,36 @@ A blockchain company is launching a new ERC20 token — `RatherToken (RDT)` — 
 | Layer       | Technology                 |
 |-------------|-----------------------------|
 | Smart Contracts | Solidity, OpenZeppelin, Foundry |
-| Frontend    | React, Next.js, Tailwind (planned) |
+| Frontend    | React, Next.js, Tailwind |
 | Tooling     | Anvil, GitHub Actions |
 
 ## 🔐 Smart Contracts
 
 The system will consist of:
 
-### ✅ RatherToken (ERC20)
+### ✅ RatherToken (ERC20) - RDT
 ### ✅ RatherAirdrop 
+
+## Sepolia Deployment
+
+The contracts have been deployed to the Sepolia testnet:
+
+| Contract         | Address                                                                 |
+|------------------|-------------------------------------------------------------------------|
+| **RatherAirdrop**    | [`0x697F9b3ea7ab4F955127D37C8ED2A59876357e40`](https://sepolia.etherscan.io/address/0x697F9b3ea7ab4F955127D37C8ED2A59876357e40) |
+| **RatherToken (RDT)**| [`0xe67DB62bF604A5E4c83dc7edF063cAA7EbC5DFE6`](https://sepolia.etherscan.io/address/0xe67DB62bF604A5E4c83dc7edF063cAA7EbC5DFE6) |
+
+---
+
+The contracts were deployed using **Foundry** with the following command:
+
+```
+forge script script/DeployRatherAirdrop.s.sol \
+  --broadcast \
+  --rpc-url $RPC_URL_SEPOLIA \
+  --private-key $PRIVATE_KEY_SEPOLIA_ACCOUNT1
+```
+
 
 ## Instalation
 
@@ -84,7 +105,7 @@ $ npm run format
 $ npm run lint
 ```
 
-### Anvil
+### Local Blockchain (Anvil)
 
 ```shell
 $ anvil
@@ -110,6 +131,12 @@ $ anvil --help
 $ cast --help
 ```
 
+### Generate Abi.json
+
+```shell
+$ forge inspect RatherAirdrop abi --json > abi/airdropAbi.json
+```
+
 ## Project Structure
 
 ```
@@ -117,9 +144,12 @@ airdop-project/
 │
 ├── contracts/          # Solidity smart contracts
 │   └── RatherToken.sol
+│   └── RatherAirdrop.sol
 ├── script/             # Deployment scripts
 ├── test/               # Unit tests
 ├── lib/                # External libraries (e.g., OpenZeppelin)
+├── abi/                # ABI files for frontend integration
+├── broadcast/          # Deployment logs
 ├── foundry.toml        # Foundry project config
 └── .env                # Environment variables (not committed)
 
