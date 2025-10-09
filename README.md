@@ -38,7 +38,9 @@ The system consists of:
 
 ---
 
-## Instalation
+## Quick Start
+
+### Automated Setup
 
 ```
 # Clone the repository
@@ -53,87 +55,91 @@ cp .env.example .env
 # Edit .env with your keys and RPC URLs
 ```
 
+### Manual Setup
+```
+# Install Foundry
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 
-## Merkle Tree
+# Install dependencies
+forge install
+git submodule update --init --recursive
 
-### Generate Input
-
-```shell
-$ forge script script/GenerateInput.s.sol:GenerateInput
+# Setup environment
+cp .env.example .env
+# Edit .env with your keys and RPC URLs
 ```
 
-### Build Merkle Tree
+## Development
 
-```shell
-$ forge script script/MakeMerkle.s.sol:MakeMerkle
+### Build contracts
+
+```
+forge build
+```
+
+### Code quality
+```bash
+# Format Solidity
+forge fmt
+
+# Lint & Format (if using Node.js tools)
+npm run format
+npm run lint
+```
+
+### Merkle Tree management
+
+``` bash
+# Generate input data
+forge script script/GenerateInput.s.sol:GenerateInput
+# Build merkle tree & proofs
+forge script script/MakeMerkle.s.sol:MakeMerkle
+
 ```
 
 ---
 
-## Usage
+## Testing
 
-### Build
 
-```shell
-$ forge build
+### Test Suite
+
+```bash
+# Run all tests
+forge test
+
+# Run with detailed traces
+forge test -vv
+
+# Run specific test
+forge test --match-test testClaimAllAtOnce
 ```
 
-### Test
+### Automated Test Suite
 
-```shell
-$ forge test
-$ forge test --match-test testRecoverUnclaimedTokensAfterPause -vv
-```
-
-### Use `setuptest.sh`
-The `setuptest.sh` script automates the generation of PROOF files and runs the tests:
 ```bash
 ./setuptest.sh
 ```
 
-### Format
-
-```shell
-$ forge fmt
-$ npm run format
-$ npm run lint
-```
-
-### Local Blockchain (Anvil)
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/DeployRatherToken.s.sol:DeployRatherToken --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
-
-### Generate Abi.json for frontend
-
-```shell
-$ forge inspect RatherAirdrop abi --json > abi/airdropAbi.json
-```
-
 ---
 
-## Sepolia Deployment
+## Deployment
+
+### Local Development
+
+```shell
+# Start local blockchain
+anvil
+
+# Deploy to Anvil
+forge script script/DeployRatherAirdrop.s.sol \
+  --broadcast \
+  --rpc-url http://127.0.0.1:8545 \
+  --private-key $PRIVATE_KEY_ANVIL
+```
+
+### Sepolia Testnet
 
 The contracts have been deployed to the Sepolia testnet:
 
@@ -142,38 +148,20 @@ The contracts have been deployed to the Sepolia testnet:
 | **RatherAirdrop**    | [`0x697F9b3ea7ab4F955127D37C8ED2A59876357e40`](https://sepolia.etherscan.io/address/0x697F9b3ea7ab4F955127D37C8ED2A59876357e40) |
 | **RatherToken (RDT)**| [`0xe67DB62bF604A5E4c83dc7edF063cAA7EbC5DFE6`](https://sepolia.etherscan.io/address/0xe67DB62bF604A5E4c83dc7edF063cAA7EbC5DFE6) |
 
----
-
 The contracts were deployed using **Foundry** with the following command:
 
-```
+```bash
 forge script script/DeployRatherAirdrop.s.sol \
   --broadcast \
   --rpc-url $RPC_URL_SEPOLIA \
-  --private-key $PRIVATE_KEY_SEPOLIA_ACCOUNT1
+  --private-key $PRIVATE_KEY_SEPOLIA_ACCOUNT1 \
+  --verify \
+  --etherscan-api-key $ETHERSCAN_API_KEY
 ```
 
----
+### Deployment Verification in Anvil
 
-## 🧪 Testing Locally with Anvil
-
-### Step 1: Run Anvil
-Start a local blockchain using Anvil:
-```bash
-anvil
-```
-
-### Step2: Deploy Contracts
-Deploy the `RatherAirdrop` and `RatherToken` contracts locally:
-```bash
-forge script script/DeployRatherAirdrop.s.sol --broadcast --rpc-url $RPC_URL --private-key $PRIVATE_KEY_ANVIL
-```
-
-This will create two contracts:
-- **RatherAirdrop**: `0xAirdropAddress`
-- **RatherToken**: `0xTokenAddress`
-
-### Step 3: Configure MetaMask for Anvil
+#### Configure MetaMask for Anvil
 1. Open MetaMask and add a new network:
    - **Network Name**: Anvil
    - **RPC URL**: `http://127.0.0.1:8545`
@@ -185,54 +173,48 @@ This will create two contracts:
    - Open MetaMask → Assets → "Import Tokens".
    - Use the deployed RatherToken contract address.
 
-###  Step 4: Interact with RatherToken
 
-#### Total Supply
+
+#### Interact with RatherToken
+
 ```bash
+# Total Supply
 cast call 0xTokenAddress "totalSupply()" --rpc-url $RPC_URL | cast --to-dec | xargs -I {} cast --to-unit {} ether
-```
-
-#### Balance of Owner
-```bash
+# Balance of Owner
 cast call 0xTokenAddress "balanceOf(address)" 0xYourAddress --rpc-url $RPC_URL | cast --to-dec | xargs -I {} cast --to-unit {} ether
-```
 
-#### Transfer Tokens
-```bash
+# Transfer Tokens
 cast send 0xTokenAddress "transfer(address,uint256)" 0xRecipientAddress 1000000000000000000 --private-key $PRIVATE_KEY_ANVIL --rpc-url $RPC_URL
 ```
 
----
+#### Interact with RatherAirdrop
 
-### Step 5: Interact with RatherAirdrop
-
-#### Claim Tokens
 ```bash
+# Claim Tokens
 cast send 0xAirdropAddress "claim(address,uint256,uint256,bytes32[])" 0xYourAddress 1000000000000000000 500000000000000000 "[]" --private-key $PRIVATE_KEY_ANVIL --rpc-url $RPC_URL
-```
 
-#### Pause Airdrop
-```bash
+# Pause Airdrop
 cast send 0xAirdropAddress "pauseAirdrop()" --private-key $PRIVATE_KEY_ANVIL --rpc-url $RPC_URL
-```
 
-#### Unpause Airdrop
-```bash
+# Unpause Airdrop
 cast send 0xAirdropAddress "unpauseAirdrop()" --private-key $PRIVATE_KEY_ANVIL --rpc-url $RPC_URL
-```
 
-#### Recover Unclaimed Tokens
-```bash
+# Recover Unclaimed Tokens
 cast send 0xAirdropAddress "recoverUnclaimedTokens()" --private-key $PRIVATE_KEY_ANVIL --rpc-url $RPC_URL
-```
 
-#### Get Airdrop Status
-```bash
+# Get Airdrop Status
 cast call 0xAirdropAddress "getAirdropStatus()" --rpc-url $RPC_URL
 ```
 
 ---
 
+### Frontend Integration: ABI Generation
+
+```bash
+forge inspect RatherAirdrop abi --json > abi/airdropAbi.json
+```
+
+---
 
 
 ## Project Structure
