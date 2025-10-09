@@ -1,3 +1,7 @@
+# node.js
+node_modules/
+package-lock.json
+
 # Compiler files
 cache/
 out/
@@ -9,6 +13,7 @@ out/
 
 # Docs
 docs/
+abi/
 
 # Dotenv file
 .env
