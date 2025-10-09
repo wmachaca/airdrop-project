@@ -45,9 +45,12 @@ The system consists of:
 git clone git@github.com:wmachaca/airdrop-project.git
 cd airdrop-project
 
-```bash
 chmod +x setup.sh
 ./setup.sh
+
+# Setup environment
+cp .env.example .env
+# Edit .env with your keys and RPC URLs
 ```
 
 
