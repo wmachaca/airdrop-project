@@ -8,12 +8,25 @@ import {RatherToken} from "../contracts/RatherToken.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract DeployRatherAirdrop is Script {
-    bytes32 private s_merkleRoot = 0x4e2a25cb48b3d980bbbf57eb9a597d4868ddced7e85801a19748c831a703c3cd;
+    //bytes32 private s_merkleRoot = 0x4e2a25cb48b3d980bbbf57eb9a597d4868ddced7e85801a19748c831a703c3cd;
     uint256 private s_amountToTransfer = 8* 25* 1e18;
     uint256 private initialSupply = 2000*1e18;
 
+
+    function getMerkleRootFromJson() internal view returns (bytes32) {
+        string memory rootPath = vm.projectRoot();
+        string memory outputPath = string.concat(rootPath, "/script/target/output.json");
+        string memory json = vm.readFile(outputPath);
+
+        // Reads the root from the first entry in the array
+        bytes32 root = json.readBytes32("$[0].root");
+        return root;
+    }
+
     //function deployRatherAirdrop(uint256 initialSupply) public returns (RatherAirdrop, RatherToken) {
     function deployRatherAirdrop() public returns (RatherAirdrop, RatherToken) {    
+        bytes32 merkleRoot = getMerkleRootFromJson();
+
         vm.startBroadcast();
         RatherToken token = new RatherToken(initialSupply);
         RatherAirdrop airdrop = new RatherAirdrop(s_merkleRoot, IERC20(address(token)), s_amountToTransfer);
