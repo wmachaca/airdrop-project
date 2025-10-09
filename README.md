@@ -45,17 +45,11 @@ The system consists of:
 git clone git@github.com:wmachaca/airdrop-project.git
 cd airdrop-project
 
-# Install Foundry (if not already)
-curl -L https://foundry.paradigm.xyz | bash
-foundryup
-
-# Install dependencies (e.g., OpenZeppelin)
-forge install
-
-# (Alternative) Install from submodules
-git submodule update --init --recursive
-
+```bash
+chmod +x setup.sh
+./setup.sh
 ```
+
 
 ## Merkle Tree
 
